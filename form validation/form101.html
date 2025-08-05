@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <div>
+        <h1>แบบฟอร์มรับสมัคร</h1>
+        <form action="">
+        <label for="name">ชื่อ-นามสกุล:</label>
+        <input type="text" name="name" required minlength="10"
+        maxlength="20"><br>
+        <label for="email">อีเมล: stu67xxxxxxxx@mju.ac.th </label>
+        <input type="email" name="email" required pattern="stu67[0-9]{8}@mju\.ac\.th"><br>
+
+        Grade A, B+,B, C+, C,D+, D,F
+        <input type="text" name="grade" required>
+
+        GPA: 1.75 - 4.00
+        <input type="text" name="gpa" required><br>
+
+        เลขคู่
+        <input type="text" name="even_number" required>
+
+        รหัสผ่าน 8 ตัวขึ้นไป,มีคำว่า thai,ไม่มีตัวอักษรพิเศษ
+        ห้ามเว้นวรรค/ช่องว่าง
+
+        <input type="text" name="password" pattern="^thai\S.[0-9](8)\W"><br>
+
+        ทะเบียนรถยนต์
+        เลข1 เว้นวรรค ตัวอักษร 2 ตัว ตามด้วยตัวเลข 4 หลัก
+        ชื่อจังหวัด
+
+        หมายเลขครุภัณฑ์
+
+        <input type="text" name="province">
+        <label for="number">Age:</label>
+        <input type="number" name="age" min="1" max="100"
+        placeholder="Enter your age" >
+        <label for="rank">Rank (1-5):</label>
+        <input type="range"name="rank" min="1" max="5" value="3">
+
+        <input type="submit" value="ส่งข้อมูล">
+        </form>
+    </div>
+</body>
+</html>

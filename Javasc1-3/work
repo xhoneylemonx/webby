@@ -1,0 +1,42 @@
+//ข้อ1
+function calculateArea(width, height) {
+  return width * height;
+}
+
+console.log(`พื้นที่คือ: ${calculateArea(5, 10)} ตารางหน่วย`);
+
+//ข้อ2
+let products = ["แป้ง", "สบู่", "แชมพู", "ยาสีฟัน", "น้ำยาล้างจาน"];
+console.log("ก่อนเพิ่มสินค้า:", products);
+
+// เพิ่มสินค้าใหม่
+products.push("ผงซักฟอก");
+console.log("หลังเพิ่มสินค้า:", products);
+
+// ลบสินค้าชิ้นสุดท้าย
+products.pop();
+console.log("หลังลบสินค้า:", products);
+
+//ข้อ3
+let names = ["สมชาย", "อริสรา", "นที", "จักรพงษ์", "นภัสวรรณ"];
+
+let longNames = names.filter(name => name.length > 5);
+
+console.log("ชื่อที่ยาวกว่า 5 ตัวอักษร:", longNames);
+
+//ข้อ4
+let prices = [100, 250, 75, 400, 180, 300, 150, 500, 60, 220];
+
+let discountedPrices = prices.map(price => price * 0.9);
+
+console.log("ราคาหลังหักส่วนลด 10%:", discountedPrices);
+
+//ข้อ5
+function getAverageScore(scores) {
+  let total = scores.reduce((sum, score) => sum + score, 0);
+  return total / scores.length;
+}
+
+let studentScores = [85, 78, 92, 60, 74, 88, 95, 67, 80, 90];
+
+console.log(`คะแนนเฉลี่ยคือ: ${getAverageScore(studentScores)}`);

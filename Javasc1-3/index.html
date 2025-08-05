@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>แบบฝึกหัด JavaScript</title>
+  <style>
+    .out-of-stock {
+      color: red;
+    }
+    #gallery img {
+      width: 80px;
+      margin: 5px;
+      cursor: pointer;
+    }
+    #main-image {
+      width: 300px;
+      display: block;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📦 การจัดการสินค้าในคลัง</h2>
+  <div id="product-container"></div>
+
+  <hr>
+
+  <h2>🖼️ แกลเลอรี่ภาพ</h2>
+  <img id="main-image" src="" alt="Main Image">
+  <div id="gallery"></div>
+
+  <hr>
+
+  <h2>👤 การแสดงผลผู้ใช้</h2>
+  <div id="user-profile" style="display: none;">นี่คือโปรไฟล์ของคุณ</div>
+  <div id="guest-message" style="display: none;">กรุณาเข้าสู่ระบบเพื่อดูโปรไฟล์ของคุณ</div>
+
+  <!-- เชื่อมกับไฟล์ JS -->
+  <script src="script.js"></script>
+</body>
+</html>
