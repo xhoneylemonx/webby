@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>แบบสอบถามสุขภาพ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-green-50 via-blue-50 to-white min-h-screen flex items-center justify-center p-4">
+
+  <div class="bg-white/80 backdrop-blur-lg p-8 rounded-3xl shadow-lg w-full max-w-lg border border-green-100 animate-slideUp">
+    <h1 class="text-2xl font-bold text-center text-green-700 mb-6"> แบบสอบถามสุขภาพ</h1>
+
+    <form id="healthForm" class="space-y-5">
+      <!-- อายุ -->
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">อายุ</label>
+        <input type="number" id="age" class="w-full border border-green-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-400 outline-none" placeholder="เช่น 25">
+        <p id="ageError" class="text-red-500 text-sm hidden mt-1">⚠️ อายุ 15–60 ปีเท่านั้น</p>
+      </div>
+
+      <!-- เพศ -->
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1">เพศ</label>
+        <div class="flex space-x-6">
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="gender" value="ชาย" class="text-green-500">
+            <span>🧑ชาย</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="gender" value="หญิง" class="text-green-500">
+            <span>👩หญิง</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- น้ำหนักและส่วนสูง -->
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">น้ำหนัก (กก.)</label>
+          <input type="number" id="weight" class="w-full border border-green-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-400 outline-none">
+          <p id="weightError" class="text-red-500 text-sm hidden mt-1">⚠️ ต้องมากกว่า 0</p>
+        </div>
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">ส่วนสูง (ซม.)</label>
+          <input type="number" id="height" class="w-full border border-green-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-400 outline-none">
+          <p id="heightError" class="text-red-500 text-sm hidden mt-1">⚠️ ต้องมากกว่า 0</p>
+        </div>
+      </div>
+
+      <!-- โรคประจำตัว -->
+      <div>
+        <label class="flex items-center space-x-2">
+          <input type="checkbox" id="hasDisease" class="text-green-500">
+          <span>มีโรคประจำตัว</span>
+        </label>
+        <textarea id="diseaseDetails" class="w-full border border-green-300 rounded-lg px-4 py-2 mt-2 hidden focus:ring-2 focus:ring-green-400 outline-none" placeholder="กรอกรายละเอียดโรคประจำตัว"></textarea>
+        <p id="diseaseError" class="text-red-500 text-sm hidden mt-1">⚠️ กรุณากรอกรายละเอียด</p>
+      </div>
+
+      <!-- ปุ่มส่ง -->
+      <button type="submit" class="w-full bg-green-500 text-white py-3 rounded-xl font-semibold hover:bg-green-600 transition shadow-md hover:shadow-xl">
+        ส่งข้อมูล
+      </button>
+    </form>
+  </div>
+
+  <!-- Modal -->
+  <div id="resultModal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden animate-fadeIn">
+    <div class="bg-white rounded-3xl p-6 w-80 text-center shadow-xl animate-zoomIn">
+      <h2 class="text-xl font-bold text-green-600 mb-4">📊 ผลการประเมิน</h2>
+      <p id="resultMessage" class="mb-6 text-gray-700"></p>
+      <button id="closeModal" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition">ปิด</button>
+    </div>
+  </div>
+
+  <style>
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0 }
+      to { transform: translateY(0); opacity: 1 }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0 }
+      to { opacity: 1 }
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.85); opacity: 0 }
+      to { transform: scale(1); opacity: 1 }
+    }
+    .animate-slideUp { animation: slideUp 0.5s ease-out; }
+    .animate-fadeIn { animation: fadeIn 0.3s ease-in-out; }
+    .animate-zoomIn { animation: zoomIn 0.3s ease-in-out; }
+  </style>
+
+  <script>
+    const healthForm = document.getElementById("healthForm");
+    const age = document.getElementById("age");
+    const weight = document.getElementById("weight");
+    const height = document.getElementById("height");
+    const hasDisease = document.getElementById("hasDisease");
+    const diseaseDetails = document.getElementById("diseaseDetails");
+
+    const ageError = document.getElementById("ageError");
+    const weightError = document.getElementById("weightError");
+    const heightError = document.getElementById("heightError");
+    const diseaseError = document.getElementById("diseaseError");
+
+    const resultModal = document.getElementById("resultModal");
+    const resultMessage = document.getElementById("resultMessage");
+    const closeModal = document.getElementById("closeModal");
+
+    hasDisease.addEventListener("change", () => {
+      diseaseDetails.classList.toggle("hidden", !hasDisease.checked);
+    });
+
+    healthForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      // reset error
+      [ageError, weightError, heightError, diseaseError].forEach(err => err.classList.add("hidden"));
+
+      let isValid = true;
+
+      // ตรวจอายุ
+      if (age.value < 15 || age.value > 60) {
+        ageError.classList.remove("hidden");
+        isValid = false;
+      }
+
+      // ตรวจน้ำหนัก
+      if (weight.value <= 0) {
+        weightError.classList.remove("hidden");
+        isValid = false;
+      }
+
+      // ตรวจส่วนสูง
+      if (height.value <= 0) {
+        heightError.classList.remove("hidden");
+        isValid = false;
+      }
+
+      // ตรวจโรคประจำตัว
+      if (hasDisease.checked && diseaseDetails.value.trim() === "") {
+        diseaseError.classList.remove("hidden");
+        isValid = false;
+      }
+
+      if (isValid) {
+        // คำนวณ BMI
+        const bmi = (weight.value / Math.pow(height.value / 100, 2)).toFixed(1);
+        let category = "";
+        if (bmi < 18.5) category = "น้ำหนักน้อย";
+        else if (bmi < 25) category = "ปกติ";
+        else if (bmi < 30) category = "น้ำหนักเกิน";
+        else category = "อ้วน";
+
+        resultMessage.textContent = `BMI ของคุณคือ ${bmi} (${category})`;
+        resultModal.classList.remove("hidden");
+      }
+    });
+
+    closeModal.addEventListener("click", () => {
+      resultModal.classList.add("hidden");
+    });
+  </script>
+
+</body>
+</html>
