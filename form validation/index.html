@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>จองตั๋วกิจกรรม</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 min-h-screen flex items-center justify-center p-4">
+
+  <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md animate-fadeIn">
+    <h1 class="text-2xl font-extrabold mb-6 text-center text-purple-600">🎟️ จองตั๋วกิจกรรม</h1>
+
+    <form id="bookingForm" class="space-y-5">
+      <!-- ชื่อ-นามสกุล -->
+      <div>
+        <label class="block font-medium text-gray-700 mb-1">ชื่อ-นามสกุล</label>
+        <input type="text" id="fullname" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400 focus:outline-none" placeholder="เช่น สมชาย ใจดี">
+        <p id="fullnameError" class="text-red-500 text-sm hidden mt-1">⚠️ กรุณากรอกอย่างน้อย 2 คำ</p>
+      </div>
+
+      <!-- เบอร์โทรศัพท์ -->
+      <div>
+        <label class="block font-medium text-gray-700 mb-1">เบอร์โทรศัพท์</label>
+        <input type="text" id="phone" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400 focus:outline-none" placeholder="เช่น 0812345678">
+        <p id="phoneError" class="text-red-500 text-sm hidden mt-1">⚠️ กรุณากรอกเบอร์ 10 หลักขึ้นต้นด้วย 0</p>
+      </div>
+
+      <!-- ประเภทตั๋ว -->
+      <div>
+        <label class="block font-medium text-gray-700 mb-1">ประเภทตั๋ว</label>
+        <select id="ticketType" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400 focus:outline-none">
+          <option value="ปกติ">ปกติ</option>
+          <option value="VIP">VIP</option>
+          <option value="Premium">Premium</option>
+        </select>
+      </div>
+
+      <!-- จำนวนตั๋ว -->
+      <div>
+        <label class="block font-medium text-gray-700 mb-1">จำนวนตั๋ว</label>
+        <input type="number" id="ticketCount" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400 focus:outline-none" min="1" max="5" value="1">
+        <p id="ticketError" class="text-red-500 text-sm hidden mt-1">⚠️ จำนวนตั๋วไม่ถูกต้อง</p>
+      </div>
+
+      <!-- ปุ่มจอง -->
+      <button type="submit" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition duration-300 shadow-lg hover:shadow-xl">
+        จองตั๋ว
+      </button>
+    </form>
+  </div>
+
+  <!-- Modal -->
+  <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden animate-fadeIn">
+    <div class="bg-white rounded-2xl p-8 shadow-2xl w-80 text-center animate-scaleUp">
+      <h2 class="text-xl font-bold mb-4 text-green-600">✅ จองตั๋วสำเร็จ</h2>
+      <p id="successMessage" class="mb-6"></p>
+      <button id="closeModal" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition">ปิด</button>
+    </div>
+  </div>
+
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0 }
+      to { opacity: 1 }
+    }
+    @keyframes scaleUp {
+      from { transform: scale(0.8); opacity: 0 }
+      to { transform: scale(1); opacity: 1 }
+    }
+    .animate-fadeIn { animation: fadeIn 0.4s ease-in-out; }
+    .animate-scaleUp { animation: scaleUp 0.3s ease-in-out; }
+  </style>
+
+  <script>
+    const bookingForm = document.getElementById("bookingForm");
+    const fullname = document.getElementById("fullname");
+    const phone = document.getElementById("phone");
+    const ticketType = document.getElementById("ticketType");
+    const ticketCount = document.getElementById("ticketCount");
+
+    const fullnameError = document.getElementById("fullnameError");
+    const phoneError = document.getElementById("phoneError");
+    const ticketError = document.getElementById("ticketError");
+
+    const successModal = document.getElementById("successModal");
+    const successMessage = document.getElementById("successMessage");
+    const closeModal = document.getElementById("closeModal");
+
+    bookingForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      // reset error
+      fullnameError.classList.add("hidden");
+      phoneError.classList.add("hidden");
+      ticketError.classList.add("hidden");
+
+      let isValid = true;
+
+      // ตรวจชื่อ
+      if (fullname.value.trim().split(" ").length < 2) {
+        fullnameError.classList.remove("hidden");
+        isValid = false;
+      }
+
+      // ตรวจเบอร์โทร
+      if (!/^0\d{9}$/.test(phone.value.trim())) {
+        phoneError.classList.remove("hidden");
+        isValid = false;
+      }
+
+      // ตรวจจำนวนตั๋ว
+      const count = parseInt(ticketCount.value);
+      if (count < 1 || count > 5) {
+        ticketError.textContent = "⚠️ จำนวนตั๋วต้องอยู่ระหว่าง 1 ถึง 5";
+        ticketError.classList.remove("hidden");
+        isValid = false;
+      }
+      if ((ticketType.value === "VIP" || ticketType.value === "Premium") && count > 2) {
+        ticketError.textContent = "⚠️ VIP/Premium ซื้อได้ไม่เกิน 2 ใบ";
+        ticketError.classList.remove("hidden");
+        isValid = false;
+      }
+
+      if (isValid) {
+        successMessage.textContent = `จำนวน: ${count} | ประเภท: ${ticketType.value}`;
+        successModal.classList.remove("hidden");
+      }
+    });
+
+    closeModal.addEventListener("click", () => {
+      successModal.classList.add("hidden");
+    });
+  </script>
+
+</body>
+</html>
