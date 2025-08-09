@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คำร้องขอโอนย้ายสาขาวิชาต่างคณะ (มจท16)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-white min-h-screen flex items-center justify-center p-6">
+
+  <div class="bg-white border border-blue-100 shadow-lg rounded-2xl p-8 w-full max-w-3xl">
+    <h1 class="text-2xl font-bold text-center text-blue-800 mb-6">
+      📝 คำร้องขอโอนย้ายสาขาวิชาต่างคณะ (มจท16)
+    </h1>
+
+    <form id="transferForm" class="space-y-5">
+      <!-- ข้อมูลส่วนตัว -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block font-semibold mb-1">ชื่อ-นามสกุล</label>
+          <input type="text" id="fullname" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
+          <p id="fullnameError" class="text-red-500 text-sm hidden">⚠️ กรุณากรอกชื่อ-นามสกุล</p>
+        </div>
+        <div>
+          <label class="block font-semibold mb-1">รหัสนักศึกษา</label>
+          <input type="text" id="studentId" maxlength="10" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
+          <p id="studentIdError" class="text-red-500 text-sm hidden">⚠️ กรุณากรอกรหัสนักศึกษา 10 หลัก</p>
+        </div>
+      </div>
+
+      <!-- คณะ/สาขาเดิม -->
+      <div>
+        <label class="block font-semibold mb-1">คณะ/สาขาวิชาเดิม</label>
+        <input type="text" id="currentMajor" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
+        <p id="currentMajorError" class="text-red-500 text-sm hidden">⚠️ กรุณากรอกข้อมูล</p>
+      </div>
+
+      <!-- คณะ/สาขาที่ต้องการย้าย -->
+      <div>
+        <label class="block font-semibold mb-1">คณะ/สาขาวิชาที่ต้องการย้าย</label>
+        <input type="text" id="desiredMajor" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
+        <p id="desiredMajorError" class="text-red-500 text-sm hidden">⚠️ กรุณากรอกข้อมูล</p>
+      </div>
+
+      <!-- เหตุผล -->
+      <div>
+        <label class="block font-semibold mb-1">เหตุผลในการขอโอนย้าย</label>
+        <textarea id="reason" rows="3" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none"></textarea>
+        <p id="reasonError" class="text-red-500 text-sm hidden">⚠️ กรุณากรอกเหตุผล</p>
+      </div>
+
+      <!-- ปุ่มส่ง -->
+      <button type="submit" class="w-full bg-blue-700 text-white py-3 rounded-lg font-semibold hover:bg-blue-800 transition">
+        ส่งคำร้อง
+      </button>
+    </form>
+  </div>
+
+  <script>
+    const transferForm = document.getElementById("transferForm");
+
+    transferForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      let isValid = true;
+
+      // ข้อมูลฟิลด์
+      const fields = [
+        { id: "fullname", errorId: "fullnameError", rule: val => val.trim() !== "" },
+        { id: "studentId", errorId: "studentIdError", rule: val => /^\d{10}$/.test(val) },
+        { id: "currentMajor", errorId: "currentMajorError", rule: val => val.trim() !== "" },
+        { id: "desiredMajor", errorId: "desiredMajorError", rule: val => val.trim() !== "" },
+        { id: "reason", errorId: "reasonError", rule: val => val.trim() !== "" }
+      ];
+
+      fields.forEach(({ id, errorId, rule }) => {
+        const input = document.getElementById(id);
+        const error = document.getElementById(errorId);
+        if (!rule(input.value)) {
+          error.classList.remove("hidden");
+          isValid = false;
+        } else {
+          error.classList.add("hidden");
+        }
+      });
+
+      if (isValid) {
+        alert("✅ ส่งคำร้องเรียบร้อยแล้ว");
+        transferForm.reset();
+      }
+    });
+  </script>
+</body>
+</html>
