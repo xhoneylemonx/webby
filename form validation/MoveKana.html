@@ -1,94 +1,134 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>คำร้องขอโอนย้ายสาขาวิชาต่างคณะ (มจท16)</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>คำร้องขอโอนย้ายสาขาวิชาต่างคณะ</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Prompt', sans-serif; }
+  </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-white min-h-screen flex items-center justify-center p-6">
+<body class="bg-gradient-to-br from-blue-50 via-white to-blue-100 min-h-screen flex items-center justify-center py-10">
 
-  <div class="bg-white border border-blue-100 shadow-lg rounded-2xl p-8 w-full max-w-3xl">
-    <h1 class="text-2xl font-bold text-center text-blue-800 mb-6">
-      📝 คำร้องขอโอนย้ายสาขาวิชาต่างคณะ (มจท16)
-    </h1>
+  <div class="max-w-4xl w-full px-4">
+    <!-- หัวข้อ -->
+    <div class="text-center mb-8">
+      <h1 class="text-3xl font-bold text-blue-800 mb-1 drop-shadow-sm">
+        คำร้องขอโอนย้ายสาขาวิชาต่างคณะ
+      </h1>
+      <p class="text-gray-500 text-sm">
+        สำหรับหลักสูตร 4 ปี และหลักสูตร 4 ปีเทียบเข้าเรียน (2ปี)
+      </p>
+    </div>
 
-    <form id="transferForm" class="space-y-5">
-      <!-- ข้อมูลส่วนตัว -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <!-- การ์ดฟอร์ม -->
+    <div class="bg-white rounded-2xl shadow-xl p-8 transform transition duration-300 hover:shadow-2xl">
+      <h2 class="text-lg font-semibold text-gray-700 mb-4 border-b pb-2">ข้อมูลนักศึกษา</h2>
+
+      <form action="#" method="POST" class="space-y-6">
+        <!-- คำนำหน้า -->
         <div>
-          <label class="block font-semibold mb-1">ชื่อ-นามสกุล</label>
-          <input type="text" id="fullname" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
-          <p id="fullnameError" class="text-red-500 text-sm hidden">⚠️ กรุณากรอกชื่อ-นามสกุล</p>
+          <label class="block font-medium text-gray-700 mb-2">คำนำหน้า</label>
+          <div class="flex gap-6">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="prefix" class="text-blue-600 focus:ring-blue-400" /> นาย
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="prefix" class="text-blue-600 focus:ring-blue-400" /> นาง
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="prefix" class="text-blue-600 focus:ring-blue-400" /> นางสาว
+            </label>
+          </div>
         </div>
+
+        <!-- ชื่อ-นามสกุล -->
         <div>
-          <label class="block font-semibold mb-1">รหัสนักศึกษา</label>
-          <input type="text" id="studentId" maxlength="10" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
-          <p id="studentIdError" class="text-red-500 text-sm hidden">⚠️ กรุณากรอกรหัสนักศึกษา 10 หลัก</p>
+          <label class="block font-medium text-gray-700 mb-2">ชื่อ-นามสกุล</label>
+          <input type="text" placeholder="กรอกชื่อ-นามสกุล" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition" />
         </div>
-      </div>
 
-      <!-- คณะ/สาขาเดิม -->
-      <div>
-        <label class="block font-semibold mb-1">คณะ/สาขาวิชาเดิม</label>
-        <input type="text" id="currentMajor" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
-        <p id="currentMajorError" class="text-red-500 text-sm hidden">⚠️ กรุณากรอกข้อมูล</p>
-      </div>
+        <!-- รหัสนักศึกษา + เบอร์มือถือ -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-medium text-gray-700 mb-2">รหัสนักศึกษา</label>
+            <input type="text" placeholder="เช่น 6504100000" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400 transition" />
+          </div>
+          <div>
+            <label class="block font-medium text-gray-700 mb-2">เบอร์มือถือ</label>
+            <input type="tel" placeholder="เช่น 0812345678" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400 transition" />
+          </div>
+        </div>
 
-      <!-- คณะ/สาขาที่ต้องการย้าย -->
-      <div>
-        <label class="block font-semibold mb-1">คณะ/สาขาวิชาที่ต้องการย้าย</label>
-        <input type="text" id="desiredMajor" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none">
-        <p id="desiredMajorError" class="text-red-500 text-sm hidden">⚠️ กรุณากรอกข้อมูล</p>
-      </div>
+        <!-- หลักสูตร -->
+        <div>
+          <label class="block font-medium text-gray-700 mb-2">หลักสูตร</label>
+          <select class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400 transition">
+            <option>04-5 ปี (2ปีเทียบเข้าเรียน)</option>
+            <option>4 ปี</option>
+          </select>
+        </div>
 
-      <!-- เหตุผล -->
-      <div>
-        <label class="block font-semibold mb-1">เหตุผลในการขอโอนย้าย</label>
-        <textarea id="reason" rows="3" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 outline-none"></textarea>
-        <p id="reasonError" class="text-red-500 text-sm hidden">⚠️ กรุณากรอกเหตุผล</p>
-      </div>
+        <!-- ภาคการศึกษา -->
+        <div>
+          <label class="block font-medium text-gray-700 mb-2">ภาคการศึกษา</label>
+          <div class="flex gap-6">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="semester" /> ภาคปกติ
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="semester" /> ภาคพิเศษ
+            </label>
+          </div>
+        </div>
 
-      <!-- ปุ่มส่ง -->
-      <button type="submit" class="w-full bg-blue-700 text-white py-3 rounded-lg font-semibold hover:bg-blue-800 transition">
-        ส่งคำร้อง
-      </button>
-    </form>
+        <!-- สาขาและคณะ -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-medium text-gray-700 mb-2">สาขาวิชา</label>
+            <input type="text" placeholder="เช่น วิทยาการคอมพิวเตอร์" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400 transition" />
+          </div>
+          <div>
+            <label class="block font-medium text-gray-700 mb-2">คณะ</label>
+            <input type="text" placeholder="เช่น วิทยาศาสตร์" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400 transition" />
+          </div>
+        </div>
+
+        <!-- ความประสงค์ -->
+        <div>
+          <label class="block font-medium text-gray-700 mb-2">ความประสงค์ขอโอนย้ายไปสาขาวิชา</label>
+          <input type="text" placeholder="ระบุสาขาที่ต้องการย้าย" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400 transition" />
+        </div>
+
+        <!-- เนื่องจาก -->
+        <div>
+          <label class="block font-medium text-gray-700 mb-2">เนื่องจาก</label>
+          <textarea rows="4" placeholder="อธิบายเหตุผล" class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-400 transition"></textarea>
+        </div>
+
+        <!-- เงื่อนไข -->
+        <div class="bg-blue-50 p-5 rounded-lg border border-blue-100">
+          <h3 class="font-semibold text-blue-700 mb-3">คุณสมบัติในการขอย้ายสาขาวิชา</h3>
+          <ul class="list-disc list-inside text-gray-600 text-sm space-y-1">
+            <li><strong>หลักสูตร 4 ปีเทียบเข้าเรียน (2ปี)</strong>:  
+              ได้เรียนจบตามแผนการศึกษาในสาขาวิชาต้นสังกัดไม่น้อยกว่า 1 ภาคการศึกษาปกติ และมีหน่วยกิตสะสมไม่น้อยกว่า 18 หน่วยกิต เกรดเฉลี่ยสะสมไม่ต่ำกว่า 2.00
+            </li>
+            <li><strong>หลักสูตร 4 ปี</strong>:  
+              ได้เรียนจบตามแผนการศึกษาในสาขาวิชาต้นสังกัดไม่น้อยกว่า 2 ภาคการศึกษาปกติ และมีหน่วยกิตสะสมไม่น้อยกว่า 30 หน่วยกิต เกรดเฉลี่ยสะสมไม่ต่ำกว่า 2.00
+            </li>
+          </ul>
+        </div>
+
+        <!-- ปุ่มส่ง -->
+        <div class="pt-4">
+          <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold py-3 rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-700 transform hover:scale-[1.02] transition-all duration-200">
+            ยื่นคำร้อง
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
-
-  <script>
-    const transferForm = document.getElementById("transferForm");
-
-    transferForm.addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      let isValid = true;
-
-      // ข้อมูลฟิลด์
-      const fields = [
-        { id: "fullname", errorId: "fullnameError", rule: val => val.trim() !== "" },
-        { id: "studentId", errorId: "studentIdError", rule: val => /^\d{10}$/.test(val) },
-        { id: "currentMajor", errorId: "currentMajorError", rule: val => val.trim() !== "" },
-        { id: "desiredMajor", errorId: "desiredMajorError", rule: val => val.trim() !== "" },
-        { id: "reason", errorId: "reasonError", rule: val => val.trim() !== "" }
-      ];
-
-      fields.forEach(({ id, errorId, rule }) => {
-        const input = document.getElementById(id);
-        const error = document.getElementById(errorId);
-        if (!rule(input.value)) {
-          error.classList.remove("hidden");
-          isValid = false;
-        } else {
-          error.classList.add("hidden");
-        }
-      });
-
-      if (isValid) {
-        alert("✅ ส่งคำร้องเรียบร้อยแล้ว");
-        transferForm.reset();
-      }
-    });
-  </script>
 </body>
 </html>
