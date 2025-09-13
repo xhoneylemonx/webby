@@ -1,29 +1,29 @@
-import { create } from "zustand"; 
+import { create } from "zustand";
 
- 
 
-interface CounterState { 
 
-    count: number; 
+interface CounterState {
 
-    increase: () => void; 
+    count: number;
 
-    decrease: () => void; 
+    increase: () => void;
 
-    reset: () => void; 
+    decrease: () => void;
 
-} 
+    reset: () => void;
 
- 
+}
 
-export const useCounterStore = create<CounterState>((set) => ({ 
 
-    count: 0, 
 
-    increase: () => set((state) => ({ count: state.count + 1 })), 
+export const useCounterStore = create<CounterState>((set) => ({
 
-    decrease: () => set((state) => ({ count: state.count - 1 })), 
+    count: 0,
 
-    reset: () => set({ count: 0 }), 
+    increase: () => set((state) => ({ count: state.count + 1 })),
+
+    decrease: () => set((state) => ({ count: state.count - 1 })),
+
+    reset: () => set({ count: 0 }),
 
 })); 

@@ -1,41 +1,41 @@
-import { useCounterStore } from "../store/couterStore"; 
+import { useCounterStore } from "../store/couterStore";
 
- 
 
-const CounterDec = () => { 
 
-    const { count, decrease, reset } = useCounterStore(); 
+const CounterDec = () => {
 
- 
+    const { count, decrease, reset } = useCounterStore();
 
-    return ( 
 
-        <div > 
 
-            <h2 >Counter</h2> 
+    return (
 
-            <p >{count}</p> 
+        <div >
 
-            <div > 
+            <h2 >Counter</h2>
 
-                <button onClick={decrease}> 
+            <p >{count}</p>
 
-                    Decrease 
+            <div >
 
-                </button> 
+                <button onClick={decrease}>
 
-                <button onClick={reset}> 
+                    Decrease
 
-                    Reset 
+                </button>
 
-                </button> 
+                <button onClick={reset}>
 
-            </div> 
+                    Reset
 
-        </div> 
+                </button>
 
-    ); 
+            </div>
 
-} 
+        </div>
+
+    );
+
+}
 
 export default CounterDec; 
