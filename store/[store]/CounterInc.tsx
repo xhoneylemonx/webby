@@ -1,43 +1,43 @@
-import { useCounterStore } from "../store/couterStore"; 
+import { useCounterStore } from "../store/couterStore";
 
- 
 
-const CounterInc = () => { 
 
-    const { count, increase, reset } = useCounterStore(); 
+const CounterInc = () => {
 
- 
+    const { count, increase, reset } = useCounterStore();
 
-    return ( 
 
-        <div > 
 
-            <h2>Counter +</h2> 
+    return (
 
-            <p>{count}</p> 
+        <div >
 
-            <div > 
+            <h2>Counter +</h2>
 
- 
+            <p>{count}</p>
 
-                <button onClick={reset}  > 
+            <div >
 
-                    Reset 
 
-                </button> 
 
-                <button onClick={increase}> 
+                <button onClick={reset}  >
 
-                    Increase 
+                    Reset
 
-                </button> 
+                </button>
 
-            </div> 
+                <button onClick={increase}>
 
-        </div> 
+                    Increase
 
-    ); 
+                </button>
 
-} 
+            </div>
+
+        </div>
+
+    );
+
+}
 
 export default CounterInc; 
